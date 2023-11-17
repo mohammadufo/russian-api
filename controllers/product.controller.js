@@ -43,3 +43,19 @@ exports.getProduct = async (req, res) => {
     })
   }
 }
+
+exports.getProductBySlug = async (req, res) => {
+  try {
+    const product = await Product.findOne({ slug: req.params.slug })
+
+    res.status(200).json({
+      status: 'success',
+      product,
+    })
+  } catch (err) {
+    res.status(500).json({
+      stats: 'ERROR 💥',
+      message: 'Error handling not yet implemented!',
+    })
+  }
+}
