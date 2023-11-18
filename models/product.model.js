@@ -23,6 +23,11 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, 'A product must have a product'],
     },
+    category: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Category',
+      required: [true, 'Product must belong to a category'],
+    },
   },
   { timestamps: true }
 )

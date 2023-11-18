@@ -2,16 +2,18 @@ const Product = require('../models/product.model')
 
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find()
+    const products = await Product.find().populate('category')
     res.status(200).json({
       status: 'success',
       products,
     })
   } catch (err) {
-    res.status(500).json({
-      stats: 'ERROR 💥',
-      message: 'Error handling not yet implemented!',
-    })
+    // res.status(500).json({
+    //   stats: 'ERROR 💥',
+    //   message: 'Error handling not yet implemented!',
+    // })
+
+    console.log(err)
   }
 }
 
@@ -57,5 +59,18 @@ exports.getProductBySlug = async (req, res) => {
       stats: 'ERROR 💥',
       message: 'Error handling not yet implemented!',
     })
+  }
+}
+
+exports.getProductByCategory = async (req, res) => {
+  try {
+    const products = await Product.find({ category: req.params.catId })
+
+    res.status(200).json({
+      status: 'success',
+      products,
+    })
+  } catch (err) {
+    console.log(err)
   }
 }
